@@ -9,6 +9,7 @@ import java.util.List;
 public class Main {
     static StringBuilder log = new StringBuilder();
 
+
     public static void main(String[] args) {
         List<String> folder = new ArrayList<>();
         folder.add("Games");
@@ -23,33 +24,15 @@ public class Main {
         folder.add("Games/res/icons");
 
         for (String name : folder) {
-            File f = new File(name);
-            try {
-                boolean result = f.mkdir();
-                if (result) {
-                    log.append("Создана папка: " + f.getName() + "\n");
-                } else {
-                    log.append("Ошибка создания папки: " + f.getName() + "\n");
-                }
-            } catch (Exception e) {
-            }
+            createDirectory(name);
         }
 
         List<String> file = new ArrayList<>();
         file.add("Games/src/main/Main.java");
         file.add("Games/src/main/Utils.java");
 
-        for (String name: file) {
-            File f = new File(name);
-            try {
-                boolean result = f.createNewFile();
-                if (result) {
-                    log.append("Создан файл: " + f.getName() + "\n");
-                } else {
-                    log.append("Создан файл: " + f.getName() + "\n");
-                }
-            } catch (Exception e) {
-            }
+        for (String name : file) {
+            createFile(name);
         }
 
         try (FileWriter writer = new FileWriter("Games/temp/temp.txt", false)) {
@@ -60,4 +43,35 @@ public class Main {
         }
     }
 
+    public static boolean createDirectory(String name) {
+        File file = new File(name);
+        boolean result = false;
+        try {
+            result = file.mkdir();
+            if (result) {
+                log.append("Создана папка: " + file.getName() + "\n");
+            } else {
+                log.append("Ошибка создания папки: " + file.getName() + "\n");
+            }
+        } catch (Exception e) {
+        }
+
+        return result;
+    }
+
+    public static boolean createFile(String name) {
+        File file = new File(name);
+        boolean result = false;
+        try {
+            result = file.createNewFile();
+            if (result) {
+                log.append("Создан файл: " + file.getName() + "\n");
+            } else {
+                log.append("Создан файл: " + file.getName() + "\n");
+            }
+        } catch (Exception e) {
+        }
+
+        return result;
+    }
 }
